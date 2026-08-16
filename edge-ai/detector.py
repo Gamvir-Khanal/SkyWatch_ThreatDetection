@@ -79,7 +79,7 @@ SERVER_URL = os.getenv("SERVER_URL", "http://localhost:8080")
 base_dir = os.path.dirname(os.path.abspath(__file__))
 VIDEO_PATH = os.getenv(
     "VIDEO_PATH",
-    os.path.abspath(os.path.join(base_dir, "..", "backend", "public", "mission_footagee.mp4"))
+    os.path.abspath(os.path.join(base_dir, "..", "backend_code", "public", "mission_footagee.mp4"))
 )
 
 DRONE_ID = "SKYW-KOL-01"
