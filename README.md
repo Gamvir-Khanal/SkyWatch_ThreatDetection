@@ -62,7 +62,7 @@ Welcome to **SkyWatch**, a state-of-the-art drone fleet management and threat de
 
 1. Make sure you have **Node.js** and **Python 3.x** installed on your system.
 2. Open a terminal in the root directory of the project.
-3. Run the `start_all.bat` script to install dependencies (if missing) and initialize all components concurrently:
+3. Run the `start_skywatch_hidden.bat` script to install dependencies (if missing) and initialize all components concurrently:
    - Node.js backend gateway (Port 8080)
    - Vite frontend dashboard (Port 3000)
    - Edge-AI detector
