@@ -1,0 +1,177 @@
+@import 'leaflet/dist/leaflet.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .hud-border {
+    border: 1px solid #3c4a42;
+  }
+  .hud-panel {
+    background-color: rgba(11, 15, 25, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .neon-glow-primary {
+    text-shadow: 0 0 8px rgba(16, 185, 129, 0.8);
+  }
+  .neon-glow-error {
+    text-shadow: 0 0 8px rgba(239, 68, 68, 0.8);
+    box-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
+  }
+  .neon-glow-warning {
+    text-shadow: 0 0 8px rgba(245, 158, 11, 0.8);
+    box-shadow: 0 0 8px rgba(245, 158, 11, 0.5);
+  }
+  .glass-panel {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes blink-fast {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.1; }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(1000%); }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+@keyframes mesh-drift {
+  0% { background-position: 0 0; }
+  100% { background-position: 100px 100px; }
+}
+
+.animate-blink {
+  animation: blink 1.5s infinite ease-in-out;
+}
+
+.animate-blink-fast {
+  animation: blink-fast 0.5s infinite ease-in-out;
+}
+
+.scanline {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: rgba(16, 185, 129, 0.35);
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.6);
+  animation: scanline 5s linear infinite;
+  pointer-events: none;
+}
+
+.mesh-bg {
+  background-image: radial-gradient(rgba(16, 185, 129, 0.15) 1px, transparent 1px);
+  background-size: 20px 20px;
+  animation: mesh-drift 10s linear infinite;
+}
+
+/* Custom Tactical Leaflet Styling */
+.leaflet-container {
+  background-color: #05070a !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  height: 100%;
+  width: 100%;
+}
+
+.leaflet-tile {
+  /* Give the DarkMatter tiles a night-vision military green/cyan tint */
+  filter: brightness(0.6) contrast(2.0) sepia(1) hue-rotate(130deg) saturate(1.8) !important;
+}
+
+/* Pulsing red restricted threat zone */
+@keyframes pulse-restricted-zone {
+  0% {
+    fill-opacity: 0.12;
+    filter: drop-shadow(0 0 2px rgba(239, 68, 68, 0.4));
+  }
+  50% {
+    fill-opacity: 0.35;
+    stroke-width: 2.5;
+    filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.9));
+  }
+  100% {
+    fill-opacity: 0.12;
+    filter: drop-shadow(0 0 2px rgba(239, 68, 68, 0.4));
+  }
+}
+
+.restricted-zone-pulse {
+  animation: pulse-restricted-zone 2s ease-in-out infinite;
+}
+
+/* Tactical Drone Marker */
+.tactical-drone-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.tactical-drone-marker .pulse-ring {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #10b981;
+  animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+.tactical-threat-marker .threat-pulse {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid #ef4444;
+  animation: pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #0f131d;
+}
+::-webkit-scrollbar-thumb {
+  background: #3c4a42;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #10b981;
+}
+.starry-radar-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-color: #050810;
+  background-image: 
+    linear-gradient(rgba(16, 185, 129, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 185, 129, 0.07) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: mesh-drift 30s linear infinite;
+}
+.starry-radar-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 0%, #050810 100%);
+}
